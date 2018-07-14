@@ -1,2 +1,0 @@
-enum FormaPagamento <boleto cartão>;
-
