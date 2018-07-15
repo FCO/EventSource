@@ -23,23 +23,11 @@ has Status          $.status                = pendente;
 
 method id { $!id-assinatura }
 
-proto method apply(AssinaturaEvent --> ::?CLASS) {*}
-
-multi method apply(CreateAssinaturaEvent $ev) {
-    self.clone: |$ev.Hash
-}
-
-multi method apply(AssinaturaAtivadaEvent $ev) {
-    self.clone: |$ev.Hash, :status(ativo)
-}
-
-multi method apply(AssinaturaCanceladaEvent $ev) {
-    self.clone: |$ev.Hash, :status(cancelado)
-}
-
-multi method apply(AtualizaAniversárioEvent $ev) {
-    self.clone: |$ev.Hash, :aniversário($ev.novo-aniversário)
-}
+proto method apply(AssinaturaEvent --> ::?CLASS)    {*}
+multi method apply(CreateAssinaturaEvent    $ev)    { $ev }
+multi method apply(AssinaturaAtivadaEvent   $ev)    { $ev.Hash: :status(ativo) }
+multi method apply(AssinaturaCanceladaEvent $ev)    { $ev.Hash: :status(cancelado) }
+multi method apply(AtualizaAniversárioEvent $ev)    { $ev.Hash: :aniversário($ev.novo-aniversário) }
 
 method ativar is command{ AssinaturaAtivadaEvent.new:
     :id-assinatura(.id-assinatura),

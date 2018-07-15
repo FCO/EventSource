@@ -27,7 +27,12 @@ method TWEAK(|c) {
 multi method load(::?CLASS:D:) {
     my ::?CLASS $domain = self;
     for $ev-stg.load: self.id, self.counter -> $ev {
-        $domain .= apply: $ev
+        my \val = $domain.apply: $ev;
+        if val !~~ ::?CLASS {
+            $domain = $domain.clone: |%(val ~~ Hash ?? val !! val.Hash)
+        } else {
+            $domain = val
+        }
     }
     $domain
 }
@@ -35,7 +40,12 @@ multi method load(::?CLASS:D:) {
 multi method load(::?CLASS:U: $id) {
     my ::?CLASS $domain .= new;
     for $ev-stg.load: $id -> $ev {
-        $domain .= apply: $ev
+        my \val = $domain.apply: $ev;
+        if val !~~ ::?CLASS {
+            $domain = $domain.clone: |%(val ~~ Hash ?? val !! val.Hash)
+        } else {
+            $domain = val
+        }
     }
     $domain
 }
