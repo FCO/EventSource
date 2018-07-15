@@ -1,5 +1,6 @@
 use Event;
 use EventStorage;
+no precompilation;
 
 unit role EventSource[EventStorage $ev-stg];
 
