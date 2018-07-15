@@ -1,18 +1,19 @@
 use Event;
-use  EventStorage;
+use EventStorage;
+no precompilation;
 
-multi trait_mod:<is>(Routine $r, :&applier!) is export {
-    $r.wrap: method {
+unit role EventSource[EventStorage $ev-stg];
+
+multi trait_mod:<is>(Routine $r, :&command!) is export {
+    $r.wrap: method (|) {
         my \rest = callsame;
         if ?rest {
-            self.save: applier self
+            self.save: command self
         }
         rest
     }
 }
 
-
-unit role EventSource[EventStorage $ev-stg];
 
 has UInt $.counter;
 
