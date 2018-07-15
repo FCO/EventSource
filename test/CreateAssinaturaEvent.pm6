@@ -4,9 +4,7 @@ use AssinaturaEvent;
 
 unit class CreateAssinaturaEvent is AssinaturaEvent;
 
-has Str             $.id-serviço;
 has Str             $.id-adesão;
-has Str             $.número-assinante;
 has FormaPagamento  $.forma-pagamento;
 has                 %.dados-pagamento;
 has                 %.dados-beneficio;

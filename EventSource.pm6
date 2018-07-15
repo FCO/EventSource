@@ -2,8 +2,6 @@ use Event;
 use EventStorage;
 no precompilation;
 
-unit role EventSource[EventStorage $ev-stg];
-
 multi trait_mod:<is>(Routine $r, :&command!) is export {
     $r.wrap: method (|) {
         my \rest = callsame;
@@ -14,10 +12,11 @@ multi trait_mod:<is>(Routine $r, :&command!) is export {
     }
 }
 
+unit role EventSource[EventStorage $ev-stg];
 
 has UInt $.counter;
 
-method id                   { ... }
+method id { ... }
 
 method TWEAK(|c) {
     if +c.hash {

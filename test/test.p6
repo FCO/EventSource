@@ -14,6 +14,11 @@ my Assinatura $a .= new:
     :31aniversário,
 ;
 
-my $b = Assinatura.load: "12345";
+my Assinatura $b .= load: "12345";
 $b.ativar;
-say $b.load
+say $b .= load;
+$b.atualiza-aniversário: 12;
+say $b .= load;
+$b.cancelar;
+say $b .= load;
+
